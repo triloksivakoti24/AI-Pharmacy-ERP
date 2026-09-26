@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PHARMAX — AI Pharmacy ERP</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+:root{--bg:#f5f7fb;--panel:#fff;--text:#172033;--muted:#687386;--line:#e6eaf0;--primary:#2563eb;--primary2:#1d4ed8;--green:#16a34a;--red:#dc2626;--amber:#d97706;--cyan:#0891b2;--shadow:0 8px 28px rgba(23,32,51,.07);--sidebar:#101827}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}button{cursor:pointer;border:0}.app{display:flex;min-height:100vh}.sidebar{width:250px;background:var(--sidebar);color:#dce5f4;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:20}.brand{padding:24px 20px;border-bottom:1px solid #253044}.brand h1{margin:0;font-size:25px;letter-spacing:.5px;color:#fff}.brand small{color:#8ea0bc;font-size:10px;font-weight:700;letter-spacing:1.6px}.nav{padding:15px 10px;overflow:auto;flex:1}.nav button{width:100%;background:transparent;color:#9eacc2;text-align:left;padding:11px 13px;border-radius:9px;margin:2px 0;display:flex;align-items:center;gap:11px;font-size:13px}.nav button:hover,.nav button.active{background:#1d2a40;color:#fff}.nav button.active{box-shadow:inset 3px 0 var(--primary)}.sidebottom{padding:14px;border-top:1px solid #253044}.sidebottom button{background:#172236;color:#b8c5d8;color:#b8c5d8;width:100%;padding:10px;border-radius:8px;margin-top:6px;text-align:left}.main{margin-left:250px;width:calc(100% - 250px)}.topbar{height:68px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:10}.search{display:flex;align-items:center;gap:8px;background:#f4f6fa;border:1px solid var(--line);border-radius:9px;padding:8px 12px;width:330px}.search input{border:0;outline:0;background:transparent;width:100%;font-size:13px}.top-actions{display:flex;gap:8px;align-items:center}.iconbtn{width:38px;height:38px;border-radius:9px;background:#f3f5f9;color:#526078;display:grid;place-items:center}.content{padding:26px;max-width:1600px;margin:auto}.page{display:none}.page.active{display:block}.pagehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.pagehead h2{margin:0;font-size:23px}.pagehead p{margin:5px 0 0;color:var(--muted);font-size:13px}.btn{padding:10px 14px;border-radius:8px;font-weight:650;font-size:12px;background:#eef2f7;color:#354158}.btn.primary{background:var(--primary);color:white}.btn.primary:hover{background:var(--primary2)}.btn.green{background:#eaf8ef;color:#147c35}.btn.red{background:#fef0f0;color:#b91c1c}.btn.amber{background:#fff6e8;color:#a85d00}.btn.sm{padding:7px 10px;font-size:11px}.grid{display:grid;gap:15px}.kpis{grid-template-columns:repeat(5,1fr)}.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.kpi{padding:17px}.kpi .label{font-size:11px;color:var(--muted);font-weight:650}.kpi .value{font-size:25px;font-weight:750;margin-top:8px}.kpi .sub{font-size:10px;color:var(--muted);margin-top:4px}.kpi.danger{border-left:4px solid var(--red)}.kpi.warn{border-left:4px solid var(--amber)}.kpi.good{border-left:4px solid var(--green)}.kpi.info{border-left:4px solid var(--primary)}.two{grid-template-columns:1.4fr 1fr}.three{grid-template-columns:repeat(3,1fr)}.panel{padding:18px}.panel h3{font-size:14px;margin:0 0 14px}.tablewrap{overflow:auto}.table{width:100%;border-collapse:collapse;font-size:12px}.table th{text-align:left;color:#788397;font-size:10px;text-transform:uppercase;letter-spacing:.5px;padding:11px 10px;border-bottom:1px solid var(--line);white-space:nowrap}.table td{padding:12px 10px;border-bottom:1px solid #eef1f5;vertical-align:middle}.table tr:hover td{background:#fafbfc}.pill{display:inline-flex;align-items:center;padding:4px 8px;border-radius:99px;font-size:10px;font-weight:700}.pill.red{background:#feecec;color:#c02727}.pill.amber{background:#fff3dc;color:#a96200}.pill.green{background:#e8f7ed;color:#187a39}.pill.blue{background:#eaf1ff;color:#2455b9}.pill.gray{background:#edf0f4;color:#5f6b7c}.medicine{font-weight:700}.muted{color:var(--muted)}.bar{height:8px;background:#edf0f5;border-radius:99px;overflow:hidden}.bar span{height:100%;display:block;background:var(--primary);border-radius:99px}.agent{background:linear-gradient(135deg,#111d31,#182b49);color:white;border-radius:14px;padding:20px}.agent .agenttop{display:flex;justify-content:space-between;align-items:center}.agent h3{margin:0}.agent .status{font-size:10px;background:#163d2a;color:#64e08b;padding:5px 8px;border-radius:99px}.agentgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.agentstat{background:#ffffff0d;border:1px solid #ffffff12;padding:12px;border-radius:9px}.agentstat b{font-size:19px;display:block}.agentstat small{color:#aebbd0}.timeline{border-left:2px solid #dfe5ee;margin:8px 0 0 8px;padding-left:18px}.event{position:relative;margin:0 0 16px}.event:before{content:"";position:absolute;left:-25px;top:3px;width:9px;height:9px;border-radius:50%;background:var(--primary);border:3px solid var(--bg)}.event b{font-size:12px}.event p{margin:4px 0;font-size:11px;color:var(--muted)}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px}.field{padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:white;outline:0;font-size:12px}.modal{position:fixed;inset:0;background:#0b122099;display:none;align-items:center;justify-content:center;z-index:50;padding:20px}.modal.show{display:flex}.modalbox{background:white;width:min(850px,100%);max-height:90vh;overflow:auto;border-radius:14px;padding:22px;box-shadow:0 20px 70px #0004}.modalhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.modalhead h3{margin:0}.formgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.formgroup label{display:block;font-size:10px;font-weight:700;color:#667286;margin-bottom:5px}.formgroup input,.formgroup select{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;outline:0}.modalfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.vendor-card{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:9px}.vendor-card.selected{border:2px solid var(--primary);background:#f7faff}.vendor-top{display:flex;justify-content:space-between}.reason{background:#f4f7fb;border-radius:8px;padding:10px;font-size:11px;line-height:1.55;margin-top:10px}.negbox{background:#f7f9fc;border:1px dashed #cfd7e3;border-radius:10px;padding:14px}.chat{height:280px;overflow:auto;background:#f6f8fb;border-radius:10px;padding:12px}.msg{max-width:78%;padding:10px;border-radius:10px;margin:7px 0;font-size:11px;line-height:1.5}.msg.ai{background:#e8f0ff}.msg.vendor{background:#eaf8ef;margin-left:auto}.msg.system{background:#fff2d9;margin:auto;text-align:center}.chartbox{height:270px}.empty{text-align:center;padding:35px;color:var(--muted);font-size:12px}.toast{position:fixed;right:22px;bottom:22px;background:#162235;color:#fff;padding:12px 15px;border-radius:9px;box-shadow:var(--shadow);display:none;z-index:100;font-size:12px}.toast.show{display:block}.mobile{display:none}.sectiontitle{margin:25px 0 12px;font-size:14px;font-weight:750}.dropzone{border:2px dashed #ccd5e3;border-radius:10px;padding:24px;text-align:center;color:var(--muted)}.statline{display:flex;justify-content:space-between;margin:10px 0;font-size:11px}.assistant{display:grid;grid-template-columns:1fr 320px;gap:15px}.assistantbox{height:440px;display:flex;flex-direction:column}.assistantmessages{flex:1;overflow:auto;padding:18px}.assistantinput{display:flex;border-top:1px solid var(--line);padding:10px;gap:8px}.assistantinput input{flex:1;border:1px solid var(--line);border-radius:8px;padding:10px;outline:0}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.two,.assistant{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}.sidebar{width:220px}.main{margin-left:220px;width:calc(100% - 220px)}}@media(max-width:750px){.sidebar{display:none}.main{margin:0;width:100%}.mobile{display:grid}.topbar{padding:0 14px}.search{width:45%}.content{padding:15px}.kpis,.three,.formgrid{grid-template-columns:1fr 1fr}.agentgrid{grid-template-columns:1fr 1fr}.pagehead{align-items:flex-start;gap:10px}.pagehead .btn{white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><h1>PHARMAX</h1><small>AI PHARMACY ERP</small></div>
+  <nav class="nav" id="nav">
+    <button class="active" data-page="dashboard"><i data-lucide="layout-dashboard"></i>Dashboard</button>
+    <button data-page="inventory"><i data-lucide="package"></i>Inventory</button>
+    <button data-page="alerts"><i data-lucide="triangle-alert"></i>Low Stock Alerts</button>
+    <button data-page="forecast"><i data-lucide="chart-no-axes-combined"></i>Demand Forecast</button>
+    <button data-page="agent"><i data-lucide="bot"></i>Restocking Agent</button>
+    <button data-page="vendors"><i data-lucide="truck"></i>Vendors</button>
+    <button data-page="comparison"><i data-lucide="scale"></i>Vendor Comparison</button>
+    <button data-page="negotiation"><i data-lucide="messages-square"></i>AI Negotiation</button>
+    <button data-page="pos"><i data-lucide="file-text"></i>Purchase Orders</button>
+    <button data-page="orders"><i data-lucide="shopping-cart"></i>Orders</button>
+    <button data-page="deliveries"><i data-lucide="package-check"></i>Deliveries</button>
+    <button data-page="expiry"><i data-lucide="calendar-clock"></i>Expiry Management</button>
+    <button data-page="analytics"><i data-lucide="bar-chart-3"></i>Procurement Analytics</button>
+    <button data-page="reports"><i data-lucide="file-chart-column"></i>Reports</button>
+    <button data-page="assistant"><i data-lucide="sparkles"></i>AI Assistant</button>
+    <button data-page="settings"><i data-lucide="settings"></i>Settings</button>
+  </nav>
+  <div class="sidebottom"><button onclick="toggleTheme()"><i data-lucide="moon"></i> Theme</button><button onclick="showToast('Notifications marked as read')"><i data-lucide="bell"></i> Notifications</button></div>
+</aside>
+<main class="main">
+<header class="topbar">
+  <div class="search"><i data-lucide="search"></i><input id="globalSearch" placeholder="Search medicines, vendors, orders..." oninput="globalSearch()"></div>
+  <div class="top-actions"><button class="iconbtn" onclick="showToast('3 new procurement alerts')"><i data-lucide="bell"></i></button><button class="iconbtn" onclick="openModal('profileModal')"><i data-lucide="user-round"></i></button></div>
+</header>
+<div class="content">
+
+<section class="page active" id="page-dashboard">
+ <div class="pagehead"><div><h2>Procurement Command Center</h2><p>Real-time pharmacy inventory and autonomous purchasing overview.</p></div><button class="btn primary" onclick="runAgent()"><i data-lucide="bot"></i> Run AI Agent</button></div>
+ <div class="grid kpis" id="kpis"></div>
+ <div class="grid two" style="margin-top:15px">
+  <div class="card panel"><h3>Inventory Health</h3><div class="chartbox"><canvas id="healthChart"></canvas></div></div>
+  <div class="agent"><div class="agenttop"><h3>Smart Restocking Agent</h3><span class="status">● MONITORING</span></div><p style="color:#b8c4d6;font-size:11px">The agent evaluates stock, urgency, demand, vendor availability, delivery and price before creating procurement recommendations.</p><div class="agentgrid" id="agentStats"></div><button class="btn" onclick="go('agent')" style="background:#fff;color:#162235">Open Agent Console</button></div>
+ </div>
+ <div class="grid two" style="margin-top:15px">
+  <div class="card panel"><h3>Critical Replenishment Queue</h3><div id="criticalTable"></div></div>
+  <div class="card panel"><h3>Recent Procurement Activity</h3><div id="activity"></div></div>
+ </div>
+</section>
+
+<section class="page" id="page-inventory">
+ <div class="pagehead"><div><h2>Inventory</h2><p>Manage medicine stock, reorder thresholds, batches and demand.</p></div><button class="btn primary" onclick="openMedicineModal()">+ Add Medicine</button></div>
+ <div class="filters"><input class="field" id="invSearch" placeholder="Search medicine..." oninput="renderInventory()"><select class="field" id="invCat" onchange="renderInventory()"><option value="">All categories</option></select><select class="field" id="invStatus" onchange="renderInventory()"><option value="">All status</option><option>Critical</option><option>Low</option><option>Healthy</option></select></div>
+ <div class="card panel"><div class="tablewrap"><table class="table"><thead><tr><th>Medicine</th><th>Category</th><th>Batch</th><th>Stock</th><th>Min/Max</th><th>Daily Demand</th><th>Expiry</th><th>Status</th><th></th></tr></thead><tbody id="inventoryBody"></tbody></table></div></div>
+</section>
+
+<section class="page" id="page-alerts">
+ <div class="pagehead"><div><h2>Low Stock Alerts</h2><p>Prioritized by shortage severity and medicine urgency.</p></div><button class="btn primary" onclick="runAgent()">Analyze All Alerts</button></div>
+ <div class="card panel"><div id="alertsList"></div></div>
+</section>
+
+<section class="page" id="page-forecast">
+ <div class="pagehead"><div><h2>Demand Forecast</h2><p>Short-term demand estimates based on historical sales velocity.</p></div></div>
+ <div class="grid two"><div class="card panel"><h3>30-Day Demand Forecast</h3><div class="chartbox"><canvas id="forecastChart"></canvas></div></div><div class="card panel"><h3>Demand Drivers</h3><div id="forecastDrivers"></div></div></div>
+ <div class="card panel" style="margin-top:15px"><h3>Medicine Forecast</h3><div id="forecastTable"></div></div>
+</section>
+
+<section class="page" id="page-agent">
+ <div class="pagehead"><div><h2>Restocking Agent Console</h2><p>Autonomous decision engine with transparent procurement reasoning.</p></div><button class="btn primary" onclick="runAgent()">Run Full Analysis</button></div>
+ <div class="agent"><div class="agenttop"><h3>Smart Restocking & Bargaining Agent</h3><span class="status">● ACTIVE</span></div><div class="agentgrid" id="agentConsoleStats"></div><div class="timeline" id="agentTimeline"></div></div>
+ <div class="sectiontitle">AI Procurement Recommendations</div><div id="recommendations"></div>
+</section>
+
+<section class="page" id="page-vendors">
+ <div class="pagehead"><div><h2>Vendors</h2><p>Supplier master data, reliability and commercial terms.</p></div><button class="btn primary" onclick="openVendorModal()">+ Add Vendor</button></div>
+ <div class="grid three" id="vendorCards"></div>
+</section>
+
+<section class="page" id="page-comparison">
+ <div class="pagehead"><div><h2>Vendor Comparison</h2><p>Compare available suppliers for a medicine using urgency-aware scoring.</p></div><select class="field" id="compareMedicine" onchange="renderComparison()"></select></div>
+ <div id="comparisonArea"></div>
+</section>
+
+<section class="page" id="page-negotiation">
+ <div class="pagehead"><div><h2>AI Negotiation</h2><p>Simulate realistic vendor bargaining based on quantity, urgency and vendor terms.</p></div></div>
+ <div class="grid two"><div class="card panel"><h3>Negotiation Request</h3><div class="formgrid"><div class="formgroup"><label>Medicine</label><select id="negMedicine"></select></div><div class="formgroup"><label>Vendor</label><select id="negVendor"></select></div><div class="formgroup"><label>Quantity</label><input id="negQty" type="number" value="150"></div><div class="formgroup"><label>Target Unit Price (₹)</label><input id="negPrice" type="number" value="110"></div></div><button class="btn primary" style="margin-top:15px" onclick="startNegotiation()">Start AI Negotiation</button><div id="negResult" style="margin-top:15px"></div></div><div class="card panel"><h3>Negotiation Principles</h3><div class="reason">The agent considers urgency, vendor reliability, MOQ, quantity, current price and delivery commitment. It will not claim success when the simulated vendor terms do not support the request.</div><div id="negHistory" style="margin-top:15px"></div></div></div>
+</section>
+
+<section class="page" id="page-pos">
+ <div class="pagehead"><div><h2>Purchase Orders</h2><p>Generated orders from accepted procurement recommendations.</p></div><button class="btn primary" onclick="generatePOFromBest()">Generate Recommended PO</button></div>
+ <div class="card panel"><div id="poTable"></div></div>
+</section>
+
+<section class="page" id="page-orders">
+ <div class="pagehead"><div><h2>Orders</h2><p>Track open, confirmed and completed procurement orders.</p></div></div>
+ <div class="card panel"><div id="ordersTable"></div></div>
+</section>
+
+<section class="page" id="page-deliveries">
+ <div class="pagehead"><div><h2>Deliveries</h2><p>Monitor expected delivery dates and receive stock into inventory.</p></div></div>
+ <div class="card panel"><div id="deliveryTable"></div></div>
+</section>
+
+<section class="page" id="page-expiry">
+ <div class="pagehead"><div><h2>Expiry Management</h2><p>Identify medicines approaching expiry and reduce wastage risk.</p></div></div>
+ <div class="card panel"><div id="expiryTable"></div></div>
+</section>
+
+<section class="page" id="page-analytics">
+ <div class="pagehead"><div><h2>Procurement Analytics</h2><p>Spend, savings, vendor performance and procurement outcomes.</p></div></div>
+ <div class="grid three"><div class="card panel"><h3>Spend by Category</h3><div class="chartbox"><canvas id="spendChart"></canvas></div></div><div class="card panel"><h3>Vendor Performance</h3><div class="chartbox"><canvas id="vendorChart"></canvas></div></div><div class="card panel"><h3>Procurement KPIs</h3><div id="analyticsKpis"></div></div></div>
+</section>
+
+<section class="page" id="page-reports">
+ <div class="pagehead"><div><h2>Reports</h2><p>Export operational data for pharmacy management.</p></div><button class="btn primary" onclick="exportData()">Export JSON</button></div>
+ <div class="grid three"><div class="card panel"><h3>Inventory Report</h3><p class="muted">Current stock, thresholds, demand and expiry.</p><button class="btn" onclick="exportInventoryCSV()">Download CSV</button></div><div class="card panel"><h3>Procurement Report</h3><p class="muted">Purchase orders, savings and vendor decisions.</p><button class="btn" onclick="exportPOCSV()">Download CSV</button></div><div class="card panel"><h3>Agent Decision Log</h3><p class="muted">Transparent reasoning from the procurement agent.</p><button class="btn" onclick="go('agent')">Open Log</button></div></div>
+</section>
+
+<section class="page" id="page-assistant">
+ <div class="pagehead"><div><h2>AI Assistant</h2><p>Ask operational questions about your current pharmacy data.</p></div></div>
+ <div class="assistant"><div class="card assistantbox"><div class="assistantmessages" id="assistantMessages"><div class="msg ai"><b>PHARMAX AI:</b> Hello. Ask me about low stock, urgent medicines, vendors, savings, purchase orders or expiry risk.</div></div><div class="assistantinput"><input id="assistantInput" placeholder="e.g. Which medicine needs urgent restocking?" onkeydown="if(event.key==='Enter')askAI()"><button class="btn primary" onclick="askAI()">Send</button></div></div><div class="card panel"><h3>Suggested Queries</h3><button class="btn" style="width:100%;margin-bottom:8px" onclick="askSuggested('Which medicines are critical?')">Critical medicines</button><button class="btn" style="width:100%;margin-bottom:8px" onclick="askSuggested('Which vendor should we use for urgent medicine?')">Urgent vendor decision</button><button class="btn" style="width:100%;margin-bottom:8px" onclick="askSuggested('How much can we save?')">Potential savings</button><button class="btn" style="width:100%" onclick="askSuggested('Which medicines expire soon?')">Expiry risk</button></div></div>
+</section>
+
+<section class="page" id="page-settings">
+ <div class="pagehead"><div><h2>Settings</h2><p>Local application preferences and demo controls.</p></div></div>
+ <div class="grid two"><div class="card panel"><h3>Pharmacy Settings</h3><div class="formgrid"><div class="formgroup"><label>Pharmacy Name</label><input id="pharmacyName" value="PHARMAX Central Pharmacy"></div><div class="formgroup"><label>Currency</label><select><option>INR — ₹</option></select></div><div class="formgroup"><label>Auto-agent interval</label><select><option>Every 15 minutes</option><option>Every hour</option><option>Manual</option></select></div><div class="formgroup"><label>Urgency threshold</label><select><option>2 days</option><option>3 days</option><option>5 days</option></select></div></div><button class="btn primary" style="margin-top:15px" onclick="saveSettings()">Save Settings</button></div><div class="card panel"><h3>Demo Data</h3><p class="muted">All data is stored locally in your browser. Resetting restores the initial demo dataset.</p><button class="btn red" onclick="resetData()">Reset Demo Data</button></div></div>
+</section>
+</div></main></div>
+
+<div class="modal" id="medicineModal"><div class="modalbox"><div class="modalhead"><h3>Add Medicine</h3><button class="iconbtn" onclick="closeModal('medicineModal')">×</button></div><div class="formgrid"><div class="formgroup"><label>Medicine Name</label><input id="mName"></div><div class="formgroup"><label>Generic Name</label><input id="mGeneric"></div><div class="formgroup"><label>Category</label><input id="mCategory" value="General"></div><div class="formgroup"><label>Manufacturer</label><input id="mManufacturer"></div><div class="formgroup"><label>Batch Number</label><input id="mBatch"></div><div class="formgroup"><label>Quantity</label><input id="mQty" type="number" value="100"></div><div class="formgroup"><label>Minimum Stock</label><input id="mMin" type="number" value="50"></div><div class="formgroup"><label>Maximum Stock</label><input id="mMax" type="number" value="300"></div><div class="formgroup"><label>Daily Demand</label><input id="mDemand" type="number" value="10"></div><div class="formgroup"><label>Unit Price (₹)</label><input id="mPrice" type="number" value="20"></div><div class="formgroup"><label>Expiry Date</label><input id="mExpiry" type="date"></div><div class="formgroup"><label>Urgency</label><select id="mUrgency"><option>Normal</option><option>High</option><option>Critical</option></select></div></div><div class="modalfoot"><button class="btn" onclick="closeModal('medicineModal')">Cancel</button><button class="btn primary" onclick="addMedicine()">Add Medicine</button></div></div></div>
+
+<div class="modal" id="vendorModal"><div class="modalbox"><div class="modalhead"><h3>Add Vendor</h3><button class="iconbtn" onclick="closeModal('vendorModal')">×</button></div><div class="formgrid"><div class="formgroup"><label>Vendor Name</label><input id="vName"></div><div class="formgroup"><label>Contact</label><input id="vContact"></div><div class="formgroup"><label>Reliability %</label><input id="vReliability" type="number" value="90"></div><div class="formgroup"><label>Default Delivery Days</label><input id="vDelivery" type="number" value="3"></div><div class="formgroup"><label>Payment Terms</label><input id="vTerms" value="Net 30"></div><div class="formgroup"><label>Free Delivery Above ₹</label><input id="vFree" type="number" value="5000"></div></div><div class="modalfoot"><button class="btn" onclick="closeModal('vendorModal')">Cancel</button><button class="btn primary" onclick="addVendor()">Add Vendor</button></div></div></div>
+<div class="modal" id="profileModal"><div class="modalbox" style="max-width:420px"><div class="modalhead"><h3>Profile</h3><button class="iconbtn" onclick="closeModal('profileModal')">×</button></div><p><b>Store Manager</b></p><p class="muted">PHARMAX Central Pharmacy</p><p class="muted">Procurement access · AI Agent enabled</p></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const seed={
+medicines:[
+{id:1,name:"Paracetamol 500mg",genericName:"Paracetamol",category:"Analgesic",manufacturer:"Cipla",batchNumber:"PCM24A01",quantity:42,minStock:80,maxStock:300,reorderPoint:100,dailyDemand:34,unitPrice:2.8,expiry:"2027-02-15",urgency:"Critical",sales30:1020},
+{id:2,name:"Amoxicillin 500mg",genericName:"Amoxicillin",category:"Antibiotic",manufacturer:"Sun Pharma",batchNumber:"AMX24B17",quantity:65,minStock:100,maxStock:260,reorderPoint:120,dailyDemand:21,unitPrice:8.5,expiry:"2027-01-10",urgency:"High",sales30:630},
+{id:3,name:"Azithromycin 500mg",genericName:"Azithromycin",category:"Antibiotic",manufacturer:"Alembic",batchNumber:"AZI24C09",quantity:28,minStock:70,maxStock:180,reorderPoint:85,dailyDemand:18,unitPrice:12,expiry:"2026-12-20",urgency:"Critical",sales30:540},
+{id:4,name:"Atorvastatin 20mg",genericName:"Atorvastatin",category:"Cardiac",manufacturer:"Zydus",batchNumber:"ATO24D04",quantity:145,minStock:70,maxStock:250,reorderPoint:90,dailyDemand:6,unitPrice:6.2,expiry:"2028-04-11",urgency:"Normal",sales30:180},
+{id:5,name:"Metformin 500mg",genericName:"Metformin",category:"Diabetes",manufacturer:"Glenmark",batchNumber:"MET24E18",quantity:52,minStock:90,maxStock:300,reorderPoint:110,dailyDemand:16,unitPrice:3.4,expiry:"2027-08-19",urgency:"High",sales30:480},
+{id:6,name:"Cetirizine 10mg",genericName:"Cetirizine",category:"Antiallergic",manufacturer:"Dr Reddy's",batchNumber:"CET24F12",quantity:210,minStock:80,maxStock:300,reorderPoint:100,dailyDemand:9,unitPrice:1.8,expiry:"2027-05-07",urgency:"Normal",sales30:270},
+{id:7,name:"Pantoprazole 40mg",genericName:"Pantoprazole",category:"Gastro",manufacturer:"Mankind",batchNumber:"PAN24G21",quantity:76,minStock:100,maxStock:280,reorderPoint:120,dailyDemand:14,unitPrice:4.1,expiry:"2026-11-28",urgency:"High",sales30:420},
+{id:8,name:"Insulin Glargine",genericName:"Insulin Glargine",category:"Diabetes",manufacturer:"Biocon",batchNumber:"INS24H02",quantity:19,minStock:35,maxStock:100,reorderPoint:45,dailyDemand:7,unitPrice:620,expiry:"2026-10-30",urgency:"Critical",sales30:210},
+{id:9,name:"ORS Sachet",genericName:"Oral Rehydration Salts",category:"Emergency",manufacturer:"FDC",batchNumber:"ORS24J13",quantity:330,minStock:100,maxStock:500,reorderPoint:130,dailyDemand:12,unitPrice:18,expiry:"2028-02-03",urgency:"Normal",sales30:360},
+{id:10,name:"Diclofenac 50mg",genericName:"Diclofenac",category:"Analgesic",manufacturer:"Novartis",batchNumber:"DIC24K16",quantity:38,minStock:70,maxStock:200,reorderPoint:90,dailyDemand:15,unitPrice:5.2,expiry:"2027-03-17",urgency:"High",sales30:450}
+],
+vendors:[
+{id:1,name:"MedSupply India",contact:"sales@medsupply.example",reliability:96,delivery:2,terms:"Net 30",freeDelivery:5000},
+{id:2,name:"HealthLine Distributors",contact:"orders@healthline.example",reliability:91,delivery:4,terms:"Net 15",freeDelivery:3000},
+{id:3,name:"Apollo Wholesale Hub",contact:"procurement@apollo.example",reliability:98,delivery:1,terms:"Net 30",freeDelivery:10000},
+{id:4,name:"CarePlus Pharma",contact:"supply@careplus.example",reliability:86,delivery:7,terms:"Advance",freeDelivery:2500}
+],
+offers:[
+{medicineId:1,vendorId:1,price:2.55,moq:100,available:500,delivery:2},{medicineId:1,vendorId:2,price:2.35,moq:200,available:90,delivery:4},{medicineId:1,vendorId:3,price:2.75,moq:50,available:300,delivery:1},{medicineId:1,vendorId:4,price:2.2,moq:300,available:400,delivery:7},
+{medicineId:2,vendorId:1,price:8.1,moq:100,available:400,delivery:2},{medicineId:2,vendorId:2,price:7.7,moq:100,available:180,delivery:4},{medicineId:2,vendorId:3,price:8.4,moq:50,available:250,delivery:1},{medicineId:2,vendorId:4,price:7.4,moq:200,available:80,delivery:7},
+{medicineId:3,vendorId:1,price:11.5,moq:100,available:250,delivery:2},{medicineId:3,vendorId:2,price:10.8,moq:100,available:60,delivery:4},{medicineId:3,vendorId:3,price:12.1,moq:50,available:180,delivery:1},{medicineId:3,vendorId:4,price:10.2,moq:200,available:300,delivery:7},
+{medicineId:5,vendorId:1,price:3.2,moq:100,available:500,delivery:2},{medicineId:5,vendorId:2,price:3.0,moq:100,available:150,delivery:4},{medicineId:5,vendorId:3,price:3.35,moq:50,available:300,delivery:1},{medicineId:5,vendorId:4,price:2.9,moq:200,available:100,delivery:7},
+{medicineId:7,vendorId:1,price:3.95,moq:100,available:250,delivery:2},{medicineId:7,vendorId:2,price:3.7,moq:100,available:200,delivery:4},{medicineId:7,vendorId:3,price:4.0,moq:50,available:180,delivery:1},{medicineId:7,vendorId:4,price:3.5,moq:200,available:100,delivery:7},
+{medicineId:8,vendorId:1,price:605,moq:20,available:80,delivery:2},{medicineId:8,vendorId:2,price:585,moq:30,available:15,delivery:4},{medicineId:8,vendorId:3,price:625,moq:10,available:100,delivery:1},{medicineId:8,vendorId:4,price:570,moq:40,available:60,delivery:7},
+{medicineId:10,vendorId:1,price:5.0,moq:100,available:300,delivery:2},{medicineId:10,vendorId:2,price:4.7,moq:100,available:120,delivery:4},{medicineId:10,vendorId:3,price:5.1,moq:50,available:250,delivery:1},{medicineId:10,vendorId:4,price:4.4,moq:200,available:70,delivery:7}
+],
+pos:[],negotiations:[],activities:[]
+};
+let db=JSON.parse(localStorage.getItem("pharmaxDB")||"null")||seed;
+function save(){localStorage.setItem("pharmaxDB",JSON.stringify(db))}
+function money(n){return "₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:2})}
+function daysTo(date){return Math.ceil((new Date(date)-new Date())/86400000)}
+function status(m){if(m.quantity<=m.reorderPoint*.55||m.quantity<m.dailyDemand*2)return"Critical";if(m.quantity<=m.reorderPoint)return"Low";return"Healthy"}
+function low(){return db.medicines.filter(m=>m.quantity<=m.reorderPoint)}
+function reqQty(m){return Math.max(0,m.maxStock-Math.max(m.quantity,0))}
+function urgent(m){return m.urgency==="Critical"||daysTo(m.expiry)<=7||m.quantity<=m.dailyDemand*2}
+function offers(m){return db.offers.filter(o=>o.medicineId===m.id).map(o=>({...o,v:db.vendors.find(v=>v.id===o.vendorId)})).filter(x=>x.v)}
+function scoreOffer(m,o){
+ const q=reqQty(m), avail=o.available>=Math.min(q,o.moq), urgency=urgent(m);
+ if(!avail)return -999;
+ if(urgency)return (o.delivery<=2?50:0)+(o.available>=q?25:10)+(o.v.reliability/10)+(20/(o.price||1));
+ return (20/(o.price||1))+o.v.reliability/10+(o.delivery<=3?8:0)+(o.available>=q?12:0)-(o.moq>q?5:0)
+}
+function bestOffer(m){let arr=offers(m).map(o=>({...o,score:scoreOffer(m,o)})).sort((a,b)=>b.score-a.score);return arr[0]}
+function go(page){document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id==="page-"+page));renderPage(page);window.scrollTo(0,0)}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>go(b.dataset.page));
+function renderAll(){renderKpis();renderDashboard();renderInventory();renderAlerts();renderForecast();renderAgent();renderVendors();fillSelects();renderComparison();renderNegotiationHistory();renderPOs();renderOrders();renderDeliveries();renderExpiry();renderAnalytics();lucide.createIcons()}
+function renderKpis(){
+ const total=db.medicines.length, lows=low(), crit=lows.filter(m=>status(m)==="Critical").length, pending=db.pos.filter(p=>p.status!=="Delivered").length, transit=db.pos.filter(p=>p.status==="In Transit").length;
+ const sales=db.medicines.reduce((s,m)=>s+m.sales30*m.unitPrice/30,0), value=db.medicines.reduce((s,m)=>s+m.quantity*m.unitPrice,0), savings=db.negotiations.reduce((s,n)=>s+(n.savings||0),0), exp=db.medicines.filter(m=>daysTo(m.expiry)<=30).length;
+ const data=[["Total Medicines",total,"Catalog items","info"],["Low Stock",lows.length,"Below reorder point","warn"],["Critical Stock",crit,"Immediate action","danger"],["Pending Orders",pending,"Open procurement","info"],["Orders In Transit",transit,"Supplier deliveries","info"],["Today's Sales",money(sales),"Estimated from 30-day run rate","good"],["Inventory Value",money(value),"Current stock value","info"],["Potential Savings",money(savings+estimateSavings()),"Negotiation + vendor optimization","good"],["Expiring Soon",exp,"Within 30 days","danger"],["Active Vendors",db.vendors.length,"Supplier network","good"]];
+ document.getElementById("kpis").innerHTML=data.map(x=>`<div class="card kpi ${x[3]}"><div class="label">${x[0]}</div><div class="value">${x[1]}</div><div class="sub">${x[2]}</div></div>`).join("");
+ document.getElementById("agentStats").innerHTML=`<div class="agentstat"><b>${lows.length}</b><small>Alerts</small></div><div class="agentstat"><b>${db.vendors.length}</b><small>Vendors</small></div><div class="agentstat"><b>${money(estimateSavings())}</b><small>Est. savings</small></div><div class="agentstat"><b>${db.pos.length}</b><small>POs created</small></div>`;
+}
+function estimateSavings(){return low().reduce((s,m)=>{let os=offers(m);if(!os.length)return s;let cheapest=Math.min(...os.map(o=>o.price)), b=bestOffer(m);return s+(b?Math.max(0,(m.unitPrice-cheapest)*Math.min(reqQty(m),m.maxStock)):0)},0)}
+function renderDashboard(){
+ const critical=low().sort((a,b)=>(urgent(b)?1:0)-(urgent(a)?1:0)||a.quantity-b.quantity).slice(0,6);
+ document.getElementById("criticalTable").innerHTML=critical.length?`<table class="table"><thead><tr><th>Medicine</th><th>Stock</th><th>Demand</th><th>Urgency</th><th>Action</th></tr></thead><tbody>${critical.map(m=>`<tr><td class="medicine">${m.name}</td><td>${m.quantity}</td><td>${m.dailyDemand}/day</td><td><span class="pill ${urgent(m)?"red":"amber"}">${m.urgency}</span></td><td><button class="btn sm primary" onclick="openProcurement(${m.id})">Analyze</button></td></tr>`).join("")}</tbody></table>`:`<div class="empty">No critical replenishment items.</div>`;
+ document.getElementById("activity").innerHTML=db.activities.length?db.activities.slice(-6).reverse().map(a=>`<div class="event"><b>${a.title}</b><p>${a.text}</p></div>`).join(""):`<div class="empty">Agent activity will appear here.</div>`;
+ drawHealth();
+}
+let charts={};
+function destroyChart(id){if(charts[id])charts[id].destroy()}
+function drawHealth(){destroyChart("health");let ctx=document.getElementById("healthChart");if(!ctx)return;let c={Healthy:0,Low:0,Critical:0};db.medicines.forEach(m=>c[status(m)]++);charts.health=new Chart(ctx,{type:"doughnut",data:{labels:Object.keys(c),datasets:[{data:Object.values(c)}]},options:{maintainAspectRatio:false,plugins:{legend:{position:"bottom"}}}})}
+function renderInventory(){
+ const q=(document.getElementById("invSearch")?.value||"").toLowerCase(), cat=document.getElementById("invCat")?.value||"", st=document.getElementById("invStatus")?.value||"";
+ let arr=db.medicines.filter(m=>(m.name+" "+m.genericName).toLowerCase().includes(q)&&(!cat||m.category===cat)&&(!st||status(m)===st));
+ document.getElementById("inventoryBody").innerHTML=arr.map(m=>`<tr><td><div class="medicine">${m.name}</div><div class="muted">${m.genericName} · ${m.manufacturer}</div></td><td>${m.category}</td><td>${m.batchNumber}</td><td><b>${m.quantity}</b></td><td>${m.minStock}/${m.maxStock}</td><td>${m.dailyDemand}/day</td><td>${m.expiry}<br><span class="muted">${daysTo(m.expiry)} days</span></td><td><span class="pill ${status(m)==="Critical"?"red":status(m)==="Low"?"amber":"green"}">${status(m)}</span></td><td><button class="btn sm" onclick="openProcurement(${m.id})">Procure</button></td></tr>`).join("")||`<tr><td colspan="9" class="empty">No medicines found.</td></tr>`;
+}
+function renderAlerts(){let arr=low().sort((a,b)=>urgent(b)-urgent(a)||a.quantity-b.quantity);document.getElementById("alertsList").innerHTML=arr.map(m=>{let b=bestOffer(m),days=Math.floor(m.quantity/m.dailyDemand);return `<div class="card panel" style="margin-bottom:10px;border-left:4px solid ${urgent(m)?"var(--red)":"var(--amber)"}"><div style="display:flex;justify-content:space-between;gap:12px"><div><b>${m.name}</b><div class="muted" style="font-size:11px;margin-top:4px">${m.quantity} units on hand · ${m.dailyDemand}/day demand · ~${days} days cover</div></div><span class="pill ${urgent(m)?"red":"amber"}">${m.urgency}</span></div><div class="reason"><b>AI assessment:</b> ${urgent(m)?"Urgency is elevated, so availability and delivery are prioritized before price.":"Stock is below the reorder point; the agent can optimize cost while preserving supply reliability."} ${b?`Recommended supplier: <b>${b.v.name}</b> (${b.delivery} days, ${money(b.price)}/unit).`:"No suitable offer currently meets the required quantity."}</div><button class="btn sm primary" style="margin-top:10px" onclick="openProcurement(${m.id})">Open Procurement Decision</button></div>`}).join("")||`<div class="empty">All medicine stock is above reorder points.</div>`}
+function renderForecast(){
+ let top=[...db.medicines].sort((a,b)=>b.dailyDemand-a.dailyDemand);
+ document.getElementById("forecastDrivers").innerHTML=[["Sales velocity","30-day sales history"],["Seasonality","Demo model uses recent run-rate"],["Stock cover","Days of supply remaining"],["Urgency","Critical medicines receive priority"]].map(x=>`<div class="statline"><span>${x[0]}</span><b>${x[1]}</b></div>`).join("");
+ document.getElementById("forecastTable").innerHTML=`<table class="table"><thead><tr><th>Medicine</th><th>30D Sales</th><th>Daily Demand</th><th>Forecast 7D</th><th>Days Cover</th><th>Risk</th></tr></thead><tbody>${top.map(m=>`<tr><td class="medicine">${m.name}</td><td>${m.sales30}</td><td>${m.dailyDemand}</td><td>${Math.ceil(m.dailyDemand*7)}</td><td>${(m.quantity/m.dailyDemand).toFixed(1)}</td><td><span class="pill ${m.quantity/m.dailyDemand<3?"red":m.quantity/m.dailyDemand<7?"amber":"green"}">${m.quantity/m.dailyDemand<3?"High":m.quantity/m.dailyDemand<7?"Medium":"Low"}</span></td></tr>`).join("")}</tbody></table>`;
+ destroyChart("forecast");let ctx=document.getElementById("forecastChart");if(ctx)charts.forecast=new Chart(ctx,{type:"bar",data:{labels:top.slice(0,7).map(m=>m.name.split(" ")[0]),datasets:[{label:"7-day forecast",data:top.slice(0,7).map(m=>m.dailyDemand*7)}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+}
+function analyze(m){let b=bestOffer(m), q=reqQty(m);if(!b)return {m,q,b:null,reason:"No vendor offer can currently satisfy the required quantity."};let urgency=urgent(m), reason=urgency?`${b.v.name} is selected because this medicine requires urgent replenishment. The decision prioritizes availability (${b.available} units), ${b.delivery}-day delivery and ${b.v.reliability}% reliability before price.`:`${b.v.name} is selected by balancing price, availability, delivery time, MOQ and vendor reliability.`;return {m,q,b,reason}}
+function renderAgent(){
+ let arr=low().map(analyze);document.getElementById("agentConsoleStats").innerHTML=`<div class="agentstat"><b>${low().length}</b><small>Low stock detected</small></div><div class="agentstat"><b>${low().filter(urgent).length}</b><small>Urgent cases</small></div><div class="agentstat"><b>${arr.filter(x=>x.b).length}</b><small>Actionable</small></div><div class="agentstat"><b>${money(estimateSavings())}</b><small>Optimization opportunity</small></div>`;
+ document.getElementById("agentTimeline").innerHTML=`<div class="event"><b>Inventory monitor</b><p>Scanned ${db.medicines.length} medicine records and identified ${low().length} below reorder point.</p></div><div class="event"><b>Demand analysis</b><p>Calculated stock coverage using current daily demand and recent sales velocity.</p></div><div class="event"><b>Vendor matching</b><p>Checked availability, delivery, MOQ, price and reliability for ${arr.filter(x=>x.b).length} actionable medicines.</p></div><div class="event"><b>Procurement strategy</b><p>Urgent medicines are evaluated with availability and delivery ahead of price.</p></div>`;
+ document.getElementById("recommendations").innerHTML=arr.map(x=>`<div class="card panel" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between"><div><b>${x.m.name}</b><div class="muted">${x.q} units target · ${x.m.quantity} currently in stock</div></div><span class="pill ${urgent(x.m)?"red":"blue"}">${urgent(x.m)?"URGENT":"OPTIMIZE"}</span></div><div class="reason"><b>Why:</b> ${x.reason}<br><b>Suggested action:</b> ${x.b?`Purchase ${Math.max(x.q,x.b.moq)} units from ${x.b.v.name} at ${money(x.b.price)}/unit.`:"Review vendor availability manually."}</div><div style="margin-top:10px;display:flex;gap:8px"><button class="btn sm primary" onclick="openProcurement(${x.m.id})">Procurement Decision</button>${x.b?`<button class="btn sm green" onclick="generatePO(${x.m.id},${x.b.vendorId},${Math.max(x.q,x.b.moq)},${x.b.price})">Create PO</button>`:""}</div></div>`).join("")||`<div class="card panel empty">No replenishment recommendations.</div>`;
+}
+function renderVendors(){document.getElementById("vendorCards").innerHTML=db.vendors.map(v=>`<div class="card panel"><div style="display:flex;justify-content:space-between"><b>${v.name}</b><span class="pill green">${v.reliability}% reliable</span></div><p class="muted">${v.contact}</p><div class="statline"><span>Default delivery</span><b>${v.delivery} days</b></div><div class="statline"><span>Payment</span><b>${v.terms}</b></div><div class="statline"><span>Free delivery</span><b>${money(v.freeDelivery)}</b></div></div>`).join("")}
+function fillSelects(){
+ let opts=db.medicines.map(m=>`<option value="${m.id}">${m.name}</option>`).join("");["compareMedicine","negMedicine"].forEach(id=>{let e=document.getElementById(id);if(e){let old=e.value;e.innerHTML=opts;e.value=old||db.medicines.find(m=>low().includes(m))?.id||db.medicines[0]?.id}});
+ let cats=[...new Set(db.medicines.map(m=>m.category))];let cat=document.getElementById("invCat");if(cat)cat.innerHTML=`<option value="">All categories</option>`+cats.map(c=>`<option>${c}</option>`).join("");
+ renderNegVendors();
+}
+function renderComparison(){let id=+document.getElementById("compareMedicine").value||low()[0]?.id||db.medicines[0]?.id,m=db.medicines.find(x=>x.id===id);if(!m)return;let os=offers(m).sort((a,b)=>b.score-a.score),b=bestOffer(m);document.getElementById("comparisonArea").innerHTML=`<div class="card panel"><div style="display:flex;justify-content:space-between"><div><h3 style="margin:0">${m.name}</h3><p class="muted">${m.quantity} stock · ${m.dailyDemand}/day demand · target ${reqQty(m)} units</p></div><span class="pill ${urgent(m)?"red":"blue"}">${urgent(m)?"URGENT DECISION":"STANDARD DECISION"}</span></div><div class="tablewrap" style="margin-top:15px"><table class="table"><thead><tr><th>Vendor</th><th>Price</th><th>Availability</th><th>MOQ</th><th>Delivery</th><th>Reliability</th><th>AI Score</th><th></th></tr></thead><tbody>${os.map(o=>`<tr ${b&&o.vendorId===b.vendorId?'style="background:#f4f8ff"':''}><td class="medicine">${o.v.name}</td><td>${money(o.price)}</td><td>${o.available}</td><td>${o.moq}</td><td>${o.delivery} days</td><td>${o.v.reliability}%</td><td>${o.score.toFixed(1)}</td><td>${b&&o.vendorId===b.vendorId?'<span class="pill blue">RECOMMENDED</span>':''}</td></tr>`).join("")}</tbody></table></div>${b?`<div class="reason"><b>AI decision:</b> ${analyze(m).reason} ${urgent(m)&&os.some(o=>o.price<b.price&&o.vendorId!==b.vendorId)?` A lower-priced alternative exists, but its supply or delivery characteristics do not satisfy the urgency priority.`:""}</div>`:""}</div>`}
+function renderNegVendors(){let m=db.medicines.find(x=>x.id===+document.getElementById("negMedicine")?.value);let e=document.getElementById("negVendor");if(!e||!m)return;e.innerHTML=offers(m).map(o=>`<option value="${o.vendorId}">${o.v.name} — ${money(o.price)}</option>`).join("");let b=bestOffer(m);if(b){e.value=b.vendorId;document.getElementById("negPrice").value=Math.ceil(b.price*.93*100)/100;document.getElementById("negQty").value=Math.max(reqQty(m),b.moq)}}
+document.getElementById("negMedicine").onchange=renderNegVendors;
+function renderNegotiationHistory(){document.getElementById("negHistory").innerHTML=db.negotiations.slice(-5).reverse().map(n=>`<div class="reason" style="margin-bottom:8px"><b>${n.medicine}</b> · ${n.vendor}<br>${n.result} · Savings ${money(n.savings)}</div>`).join("")||`<div class="empty">No negotiation attempts yet.</div>`}
+function startNegotiation(){
+ let m=db.medicines.find(x=>x.id===+negMedicine.value),v=db.vendors.find(x=>x.id===+negVendor.value),o=offers(m).find(x=>x.vendorId===v.id),qty=+negQty.value,target=+negPrice.value;
+ if(!o)return;let base=o.price, accepted=target>=base*.88 && qty>=o.moq && (qty>=reqQty(m)||!urgent(m)), final=accepted?target:base, savings=Math.max(0,(base-final)*qty);
+ if(urgent(m)&&v.delivery>2&&o.available<qty)accepted=false;
+ let result=accepted?`Negotiation Successful — ${money(base)} → ${money(final)}/unit. Delivery remains ${o.delivery} days.`:`Negotiation Rejected — vendor retained the original ${money(base)}/unit offer.`;
+ db.negotiations.push({date:new Date().toLocaleString(),medicine:m.name,vendor:v.name,result,savings});
+ db.activities.push({title:accepted?"Negotiation accepted":"Negotiation rejected",text:`${m.name} with ${v.name}. ${result}`});save();
+ document.getElementById("negResult").innerHTML=`<div class="negbox"><b>${accepted?"Negotiation Successful":"Negotiation Rejected"}</b><p>${result}</p>${accepted?`<p>Savings: <b>${money(savings)}</b></p>`:"<p>Original offer retained. No savings claimed.</p>"}</div>`;
+ renderNegotiationHistory();renderKpis();renderDashboard();
+}
+function generatePO(mId,vId,qty,price){
+ let m=db.medicines.find(x=>x.id===mId),v=db.vendors.find(x=>x.id===vId),o=offers(m).find(x=>x.vendorId===vId);if(!m||!v||!o)return;
+ let id="PO-"+String(Date.now()).slice(-7),eta=new Date(Date.now()+o.delivery*86400000).toISOString().slice(0,10);
+ let po={id,medicineId:mId,medicine:m.name,vendorId:vId,vendor:v.name,quantity:qty,unitPrice:price,total:qty*price,delivery:o.delivery,eta,status:"Confirmed",created:new Date().toISOString()};
+ db.pos.push(po);db.activities.push({title:"Purchase order created",text:`${id}: ${qty} ${m.name} from ${v.name} for ${money(po.total)}. ETA ${eta}.`});save();renderAll();showToast(`${id} created successfully`);go("pos");
+}
+function generatePOFromBest(){let m=low()[0],b=m&&bestOffer(m);if(!m||!b){showToast("No actionable low-stock medicine");return}generatePO(m.id,b.vendorId,Math.max(reqQty(m),b.moq),b.price)}
+function openProcurement(id){let m=db.medicines.find(x=>x.id===id),b=bestOffer(m),os=offers(m);document.getElementById("negMedicine").value=id;renderNegVendors();go("comparison");document.getElementById("compareMedicine").value=id;renderComparison();if(b)showToast(`AI recommends ${b.v.name} for ${m.name}`)}
+function renderPOs(){document.getElementById("poTable").innerHTML=db.pos.length?`<table class="table"><thead><tr><th>PO</th><th>Medicine</th><th>Vendor</th><th>Qty</th><th>Unit Price</th><th>Total</th><th>ETA</th><th>Status</th><th></th></tr></thead><tbody>${db.pos.map(p=>`<tr><td class="medicine">${p.id}</td><td>${p.medicine}</td><td>${p.vendor}</td><td>${p.quantity}</td><td>${money(p.unitPrice)}</td><td>${money(p.total)}</td><td>${p.eta}</td><td><span class="pill ${p.status==="Delivered"?"green":"blue"}">${p.status}</span></td><td>${p.status!=="Delivered"?`<button class="btn sm green" onclick="receivePO('${p.id}')">Receive</button>`:""}</td></tr>`).join("")}</tbody></table>`:`<div class="empty">No purchase orders yet.</div>`}
+function renderOrders(){document.getElementById("ordersTable").innerHTML=db.pos.length?`<table class="table"><thead><tr><th>Order</th><th>Vendor</th><th>Items</th><th>Value</th><th>Created</th><th>Status</th></tr></thead><tbody>${db.pos.map(p=>`<tr><td>${p.id}</td><td>${p.vendor}</td><td>${p.quantity} × ${p.medicine}</td><td>${money(p.total)}</td><td>${new Date(p.created).toLocaleDateString()}</td><td><span class="pill blue">${p.status}</span></td></tr>`).join("")}</tbody></table>`:`<div class="empty">No orders.</div>`}
+function renderDeliveries(){document.getElementById("deliveryTable").innerHTML=db.pos.length?`<table class="table"><thead><tr><th>PO</th><th>Vendor</th><th>Medicine</th><th>ETA</th><th>Days</th><th>Status</th><th>Action</th></tr></thead><tbody>${db.pos.map(p=>`<tr><td>${p.id}</td><td>${p.vendor}</td><td>${p.medicine}</td><td>${p.eta}</td><td>${Math.max(0,daysTo(p.eta))}</td><td>${p.status}</td><td>${p.status!=="Delivered"?`<button class="btn sm green" onclick="receivePO('${p.id}')">Mark Received</button>`:"<span class='pill green'>Received</span>"}</td></tr>`).join("")}</tbody></table>`:`<div class="empty">No deliveries in transit.</div>`}
+function receivePO(id){let p=db.pos.find(x=>x.id===id);if(!p)return;let m=db.medicines.find(x=>x.id===p.medicineId);m.quantity+=p.quantity;p.status="Delivered";db.activities.push({title:"Delivery received",text:`${p.id}: ${p.quantity} units of ${p.medicine} received into inventory.`});save();renderAll();showToast(`${p.id} received; inventory updated`)}
+function renderExpiry(){let arr=[...db.medicines].sort((a,b)=>new Date(a.expiry)-new Date(b.expiry));document.getElementById("expiryTable").innerHTML=`<table class="table"><thead><tr><th>Medicine</th><th>Batch</th><th>Expiry</th><th>Days Remaining</th><th>Stock</th><th>Risk</th></tr></thead><tbody>${arr.map(m=>{let d=daysTo(m.expiry),r=d<=30?"Critical":d<=90?"Watch":"Normal";return `<tr><td class="medicine">${m.name}</td><td>${m.batchNumber}</td><td>${m.expiry}</td><td>${d}</td><td>${m.quantity}</td><td><span class="pill ${r==="Critical"?"red":r==="Watch"?"amber":"green"}">${r}</span></td></tr>`}).join("")}</tbody></table>`}
+function renderAnalytics(){let spend={};db.pos.forEach(p=>{let m=db.medicines.find(x=>x.id===p.medicineId);if(m)spend[m.category]=(spend[m.category]||0)+p.total});destroyChart("spend");let s=document.getElementById("spendChart");if(s)charts.spend=new Chart(s,{type:"bar",data:{labels:Object.keys(spend),datasets:[{label:"Spend",data:Object.values(spend)}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}}}});destroyChart("vendor");let v=document.getElementById("vendorChart");if(v)charts.vendor=new Chart(v,{type:"bar",data:{labels:db.vendors.map(x=>x.name.split(" ")[0]),datasets:[{label:"Reliability %",data:db.vendors.map(x=>x.reliability)}]},options:{maintainAspectRatio:false,indexAxis:"y",scales:{x:{max:100}}}});document.getElementById("analyticsKpis").innerHTML=[["PO count",db.pos.length],["Procurement spend",money(db.pos.reduce((s,p)=>s+p.total,0))],["Negotiated savings",money(db.negotiations.reduce((s,n)=>s+n.savings,0))],["Average vendor reliability",(db.vendors.reduce((s,v)=>s+v.reliability,0)/Math.max(db.vendors.length,1)).toFixed(1)+"%"]].map(x=>`<div class="statline"><span>${x[0]}</span><b>${x[1]}</b></div>`).join("")}
+function runAgent(){db.activities.push({title:"AI agent analysis completed",text:`Scanned ${db.medicines.length} medicines, detected ${low().length} low-stock items and evaluated available suppliers.`});save();renderAll();showToast("AI restocking analysis completed");go("agent")}
+function askSuggested(q){document.getElementById("assistantInput").value=q;askAI()}
+function askAI(){let input=document.getElementById("assistantInput"),q=input.value.trim();if(!q)return;let box=document.getElementById("assistantMessages");box.innerHTML+=`<div class="msg vendor">${q}</div>`;let l=q.toLowerCase(),ans="";
+ if(l.includes("critical")||l.includes("low stock")){let a=low().filter(m=>status(m)==="Critical");ans=a.length?`There are <b>${a.length}</b> critical medicines: ${a.map(m=>m.name).join(", ")}.`:"No medicines are currently critical."}
+ else if(l.includes("vendor")||l.includes("urgent")){let a=low().filter(urgent).map(m=>{let b=bestOffer(m);return b?`${m.name}: <b>${b.v.name}</b>, ${b.delivery} days, ${money(b.price)}/unit.`:`${m.name}: no suitable supplier.`});ans=a.length?a.join("<br>"):"No urgent procurement cases detected."}
+ else if(l.includes("saving"))ans=`Current estimated optimization opportunity is <b>${money(estimateSavings())}</b>. Confirmed negotiation savings are <b>${money(db.negotiations.reduce((s,n)=>s+n.savings,0))}</b>.`;
+ else if(l.includes("expir")){let a=db.medicines.filter(m=>daysTo(m.expiry)<=30);ans=a.length?`Medicines expiring within 30 days: ${a.map(m=>m.name+" ("+daysTo(m.expiry)+" days)").join(", ")}.`:"No medicines expire within 30 days."}
+ else if(l.includes("order"))ans=`There are <b>${db.pos.length}</b> purchase orders. ${db.pos.filter(p=>p.status!=="Delivered").length} remain open.`;
+ else ans=`I can analyze inventory, urgency, demand, vendor selection, negotiation savings, purchase orders and expiry risk. Try asking "Which medicines are critical?"`;
+ box.innerHTML+=`<div class="msg ai"><b>PHARMAX AI:</b> ${ans}</div>`;box.scrollTop=box.scrollHeight;input.value=""}
+function renderPage(p){if(p==="analytics")renderAnalytics();if(p==="forecast")renderForecast();if(p==="comparison")renderComparison();if(p==="negotiation")renderNegotiationHistory();if(p==="dashboard")renderDashboard()}
+function globalSearch(){let q=document.getElementById("globalSearch").value.toLowerCase();if(q.length>1){let m=db.medicines.find(x=>(x.name+" "+x.genericName).toLowerCase().includes(q));if(m){go("inventory");document.getElementById("invSearch").value=q;renderInventory()}}}
+function openModal(id){document.getElementById(id).classList.add("show")}function closeModal(id){document.getElementById(id).classList.remove("show")}
+function openMedicineModal(){openModal("medicineModal")}function openVendorModal(){openModal("vendorModal")}
+function addMedicine(){let m={id:Date.now(),name:mName.value.trim(),genericName:mGeneric.value.trim(),category:mCategory.value.trim()||"General",manufacturer:mManufacturer.value.trim(),batchNumber:mBatch.value.trim()||"NEW-"+Date.now().toString().slice(-4),quantity:+mQty.value,minStock:+mMin.value,maxStock:+mMax.value,reorderPoint:+mMin.value,dailyDemand:+mDemand.value,unitPrice:+mPrice.value,expiry:mExpiry.value||"2028-12-31",urgency:mUrgency.value,sales30:+mDemand.value*30};if(!m.name){showToast("Medicine name is required");return}db.medicines.push(m);save();closeModal("medicineModal");renderAll();showToast("Medicine added")}
+function addVendor(){let v={id:Date.now(),name:vName.value.trim(),contact:vContact.value.trim(),reliability:+vReliability.value,delivery:+vDelivery.value,terms:vTerms.value,freeDelivery:+vFree.value};if(!v.name){showToast("Vendor name is required");return}db.vendors.push(v);save();closeModal("vendorModal");renderAll();showToast("Vendor added")}
+function toggleTheme(){document.body.classList.toggle("dark");if(document.body.classList.contains("dark")){document.documentElement.style.setProperty("--bg","#0f1726");document.documentElement.style.setProperty("--panel","#172235");document.documentElement.style.setProperty("--text","#edf3ff");document.documentElement.style.setProperty("--muted","#aab7ca");document.documentElement.style.setProperty("--line","#29364a")}else location.reload()}
+function saveSettings(){save();showToast("Settings saved locally")}
+function resetData(){if(confirm("Reset PHARMAX demo data?")){localStorage.removeItem("pharmaxDB");location.reload()}}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});downloadBlob(blob,"pharmax-data.json")}
+function csv(rows){return rows.map(r=>r.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\\n")}
+function exportInventoryCSV(){let rows=[["Medicine","Category","Batch","Quantity","Min","Max","Daily Demand","Expiry"],...db.medicines.map(m=>[m.name,m.category,m.batchNumber,m.quantity,m.minStock,m.maxStock,m.dailyDemand,m.expiry])];downloadBlob(new Blob([csv(rows)],{type:"text/csv"}),"pharmax-inventory.csv")}
+function exportPOCSV(){let rows=[["PO","Medicine","Vendor","Quantity","Unit Price","Total","ETA","Status"],...db.pos.map(p=>[p.id,p.medicine,p.vendor,p.quantity,p.unitPrice,p.total,p.eta,p.status])];downloadBlob(new Blob([csv(rows)],{type:"text/csv"}),"pharmax-purchase-orders.csv")}
+function downloadBlob(blob,name){let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href)}
+function showToast(t){let e=document.getElementById("toast");e.textContent=t;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2600)}
+document.addEventListener("click",e=>{if(e.target.classList.contains("modal"))e.classList.remove("show")});
+renderAll();
+</script>
+</body>
+</html>
